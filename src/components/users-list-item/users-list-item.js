@@ -1,29 +1,17 @@
 import React from "react";
-import styled from 'styled-components'
-
-const Wrapper = styled.li`
-    display:flex;
-    position:relative;
-    align-items: center;
-    &::after {
-        content: '';
-        position:absolute;
-        bottom:0;
-        width:100%;
-        height:1px;
-        background-color:lightgrey;
-    }
-`
+import Button from "components/button/button";
+import BadgeCircle from "../badge-circle/badge-circle-";
+import Wrapper from "./wrapper.styles";
 
 
 const  UsersListItem = (props) => (
     <Wrapper>
-        <div>{props.user.average}</div>
+        <BadgeCircle value={props.user.average}/>
         <div>
             <p>{props.user.name}</p>
             <p>attendance: {props.user.attendance}</p>
         </div>
-        <button>X</button>
+        <Button/>
     </Wrapper>
  )
 
