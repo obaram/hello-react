@@ -7,9 +7,20 @@ import StyledList from "./styled-list.styles";
 class UsersList extends React.Component {
 
     state = {
-        users,
+        users: [],
         isUsersList: true
     }
+
+
+    mockAPI = () => new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if(users){
+                resolve([...users])
+            } else {
+                reject({message: 'error'})
+            }
+        }, 2000)
+    })
 
     toggleListTitle = () =>  { this.setState((prevState) => ({isUsersList: !prevState.isUsersList}))};
 
@@ -34,7 +45,9 @@ class UsersList extends React.Component {
     }
 
     componentDidMount() {
-        console.log('mount');
+        this.mockAPI().then((data) => {
+            this.setState({users: data})
+        })
     }
 }
 
