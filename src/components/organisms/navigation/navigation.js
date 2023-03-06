@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 import {StyledNav} from "./navigation-styles";
-import {Logo, LogoStyles} from "../../atoms/logo/logo";
+import {Logo} from "../../atoms/logo/logo";
 
 
 export const Navigation = () => {
