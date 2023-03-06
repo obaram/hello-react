@@ -1,8 +1,8 @@
 import UsersList from "../components/organisms/users-list/users-list";
 
-export const Dashboard = ({users, deleteUser}) => {
+export const Dashboard = () => {
     return (
-        <UsersList users={users} deleteUser={deleteUser}/>
+        <UsersList/>
     )
 }
 
