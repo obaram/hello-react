@@ -1,11 +1,12 @@
-import UsersList from "components/organisms/users-list/users-list";
 import styled, {ThemeProvider} from 'styled-components';
 import {GlobalStyle} from "../styles/global-style";
 import {theme} from "../styles/theme";
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom'
-import Form from "../components/organisms/form/form";
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import {users} from "../data/data";
 import {useEffect, useState} from "react";
+import AddUser from "./add-user";
+import Dashboard from "./dashboard";
+import {MainLayout} from "../components/organisms/main-layout/main-layout";
 
 const Wrapper = styled.div`
   background-color: #f7f8fa;
@@ -72,16 +73,16 @@ const Root = () => {
             <Router>
                 <ThemeProvider theme={theme}>
                     <GlobalStyle/>
-                    <nav>
-                        <Link to='/'>Home</Link>
-                        <Link to='/add-user'>Add user</Link>
-                    </nav>
-                    <Wrapper>
-                        <Routes>
-                            <Route path='/' exact element={<UsersList deleteUser={deleteUser} users={users}/>}/>
-                            <Route path='add-user' exact  element={<Form formValues={formValues} handleAddUser={handleAddUser} handleFormValueChange={handleFormValueChange}/>}/>
-                        </Routes>
-                    </Wrapper>
+                    <MainLayout>
+                        <Wrapper>
+                            <Routes>
+                                <Route path='/' exact element={<Dashboard deleteUser={deleteUser} users={users}/>}/>
+                                <Route path='add-user' exact
+                                       element={<AddUser formValues={formValues} handleAddUser={handleAddUser}
+                                                      handleFormValueChange={handleFormValueChange}/>}/>
+                            </Routes>
+                        </Wrapper>
+                    </MainLayout>
                 </ThemeProvider>
             </Router>
         </>
