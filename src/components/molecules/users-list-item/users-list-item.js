@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "components/button/button";
-import BadgeCircle from "../badge-circle/badge-circle-";
+import BadgeCircle from "../../atoms/badge-circle/badge-circle-";
 import Wrapper from "./wrapper.styles";
+import DeleteButton from "../../atoms/delete-button/delete-button";
 
 
 const  UsersListItem = (props) => {
@@ -12,7 +12,7 @@ const  UsersListItem = (props) => {
             <p>{props.user.name}</p>
             <p>attendance: {props.user.attendance}</p>
         </div>
-        <Button onClick={() => props.deleteUser(props.user)}/>
+        <DeleteButton onClick={() => props.deleteUser(props.user)}/>
     </Wrapper>
     )
 }
