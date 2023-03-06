@@ -1,54 +1,51 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {users} from "data/data";
 import UsersListItem from "../users-list-item/users-list-item";
 import Wrapper from "./wrapper.styles";
 import StyledList from "./styled-list.styles";
 
-class UsersList extends React.Component {
+const mockAPI = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if (users) {
+            resolve([...users])
+        } else {
+            reject({message: 'error'})
+        }
+    }, 2000)
+})
 
-    state = {
-        users: [],
-        isUsersList: true
-    }
+const UsersList = () => {
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [isUsersList, setUsersList] = useState(false);
 
-
-    mockAPI = () => new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if(users){
-                resolve([...users])
-            } else {
-                reject({message: 'error'})
-            }
-        }, 2000)
-    })
-
-    toggleListTitle = () =>  { this.setState((prevState) => ({isUsersList: !prevState.isUsersList}))};
-
-    deleteUser = (user) => {
-        const filteredUsers = this.state.users.filter((u) => u.name !== user.name);
-        this.setState({users: filteredUsers});
+    const toggleListTitle = () => {
+        setUsersList(false)
     };
 
-    render() {
-        return (
-            <Wrapper>
-                <h1>{this.state.isUsersList ? 'Users list ': 'Students list'}</h1>
-                <button onClick={this.toggleListTitle}>Change title</button>
-                <StyledList>
-                    {this.state.users.map((user, i) => (
-                        <UsersListItem index={i} user={user} deleteUser={this.deleteUser}/>
-                    ))
-                    }
-                </StyledList>
-            </Wrapper>
-        )
-    }
+    const deleteUser = (user) => {
+        const filteredUsers = users.filter((u) => u.name !== user.name);
+        setUsers(filteredUsers);
+    };
 
-    componentDidMount() {
-        this.mockAPI().then((data) => {
-            this.setState({users: data})
+    useEffect(() => {
+        mockAPI().then((data) => {
+            setUsers(data);
         })
-    }
+    }, [])
+
+    return (
+        <Wrapper>
+            <h1>{isUsersList ? 'Users list ' : 'Students list'}</h1>
+            <button onClick={toggleListTitle}>Change title</button>
+            <StyledList>
+                {users.map((user, i) => (
+                    <UsersListItem index={i} user={user} deleteUser={deleteUser}/>
+                ))
+                }
+            </StyledList>
+        </Wrapper>
+    )
 }
 
 export default UsersList;
