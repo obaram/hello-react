@@ -25,8 +25,7 @@ export const UsersProvider = ({children}) => {
         setUsers(filteredUsers);
     };
 
-    const handleAddUser = (e, user) => {
-        e.preventDefault();
+    const handleAddUser = (user) => {
         const newUser = {
             name: user.name,
             attendance: user.attendance,
